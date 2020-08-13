@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif-monospace"
+            android:gravity="left"
+            android:padding="15dp"
+            android:text="@string/welcome_msg1"
+            android:textColor="@color/font1"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:padding="18dp"
+            android:text="@string/welcome_msg2"
+            android:textColor="@color/font2"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/go_btn"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.5"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:text="Let's Start"
+                android:layout_margin="10dp"
+                app:backgroundTint="#29A12F" />
+
+            <Button
+                android:id="@+id/hide_btn"
+                android:layout_margin="10dp"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.5"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:text="Hide forever"
+                app:backgroundTint="#DD3434" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

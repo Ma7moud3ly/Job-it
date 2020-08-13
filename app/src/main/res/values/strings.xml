@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Job it</string>
+    <string name="welcome_msg1">Dear  Sugar,</string>
+    <string name="welcome_msg2"><font color='green'>Your Resume is ready and you found the best job announcement?</font>\n\n<b>Great</b>, select an amazing cover letter and let\'s Job It...</string>
+
+
+    <string-array name="email_templates">"
+    <item>Dear [recruiter],\n
+Hoping my mail finds you well.\n
+Kindly find my attached CV, appling for "[job]" available vacancy announced.\n
+\n
+Regards.\n
+[name], [job]\n
+[phone]"</item>
+        <item>Dear [recruiter],\n
+Good Day.\n
+\n
+I hope all is well on your side. Kindly accept my attached CV for the position "[job]", hoping it would meet your requirements.\n
+I’m looking forward to further discuss this opportunity in person.\n
+\n
+Best Regards,\n
+[name], [job]\n
+[phone]</item>
+        <item>Dear [recruiter],\n
+\n
+After best regards,my name is [name]\n
+A graduate of [education]\n
+I am sending to apply for the position [job]. Kindly find my CV attached.\n
+\n
+Best Regards.\n
+Yours,\n
+[name], [job]\n
+[phone]</item>
+        <item>Dear [recruiter],\n
+Good day\n
+ \n
+In reference to the above mentioned subject, I am writing to know if there is an employment vacancy for an position in your organization relevant to my qualification and knowledge.\n​
+I have attached a copy of my CV and I am available to attend an interview if given an opportunity.\n
+\n
+Thank you for your time and consideration.\n
+\n
+regards,\n
+[name], [job]\n
+[phone]</item>
+        <item>Dear [recruiter],\n
+\n
+I hope this mail finds you well,\n
+I would like to apply for the role of [job], that I have seen posted and promoted on your website.\n
+I believe that this job aligns well with my qualities and strengths and that it would be a great opportunity for me to grow both personally and professionally.\n
+\n
+I look forward to hearing from you in the near future and hopefully to schedule an interview. Thank you for your time and consideration.\n
+\n
+please kindly see the attached CV.\n
+\n
+regards,\n
+[name], [job]\n
+[phone]</item>
+    </string-array>
+</resources>

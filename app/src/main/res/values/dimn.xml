@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="input_font_size">12sp</dimen>
+    <dimen name="input_height">40dp</dimen>
+    <dimen name="input_opacity">0.4</dimen>
+
+</resources>

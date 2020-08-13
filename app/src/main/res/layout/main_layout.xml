@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="applicant"
+            type="com.ma7moud3ly.jobit.JobApplicant" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
+
+        <!--name-->
+        <TextView
+            android:id="@+id/name_text_view"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="20dp"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Your Name"
+            android:textColor="@color/font1"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.4" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="20dp"
+            android:alpha="0.4"
+            android:background="#FFF"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:hint="Full Name"
+            android:singleLine="true"
+            android:text="@={applicant.name}"
+            android:textColor="#000"
+            android:textSize="@dimen/input_font_size"
+            app:layout_constraintStart_toEndOf="@+id/name_text_view"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.55" />
+        <!--phone-->
+        <TextView
+            android:id="@+id/phone_text_view"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="20dp"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Your Phone"
+            android:textColor="@color/font1"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name_text_view"
+            app:layout_constraintWidth_percent="0.4" />
+
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="20dp"
+            android:alpha="0.4"
+            android:background="#FFF"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:hint="Phone Number"
+            android:singleLine="true"
+            android:text="@={applicant.phone}"
+            android:textColor="#000"
+            android:textSize="@dimen/input_font_size"
+            app:layout_constraintStart_toEndOf="@+id/phone_text_view"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            app:layout_constraintWidth_percent="0.55" />
+        <!--job-->
+        <TextView
+            android:id="@+id/job_text_view"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="20dp"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Job Title"
+            android:textColor="@color/font1"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phone_text_view"
+            app:layout_constraintWidth_percent="0.4" />
+
+        <EditText
+            android:id="@+id/job"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="20dp"
+            android:alpha="0.4"
+            android:background="#FFF"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:hint="Your job"
+            android:singleLine="true"
+            android:text="@={applicant.job}"
+            android:textColor="#000"
+            android:textSize="@dimen/input_font_size"
+            app:layout_constraintStart_toEndOf="@+id/phone_text_view"
+            app:layout_constraintTop_toBottomOf="@id/phone_text_view"
+            app:layout_constraintWidth_percent="0.55" />
+        <!--resume-->
+        <TextView
+            android:id="@+id/resume_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text='@={applicant.resume,default="No resume Selected!"}'
+            android:textColor="@color/font2"
+            android:textSize="@dimen/input_font_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/job_text_view" />
+
+        <ImageButton
+            android:id="@+id/attach_resume_btn"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:alpha="1"
+            android:background="@drawable/ic_baseline_library_add_24"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/resume_name"
+            app:tint="#FFF" />
+
+        <TextView
+            android:id="@+id/attach_resume_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Attach Your Resume/CV"
+            android:textColor="@color/font1"
+            android:textSize="@dimen/input_font_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/attach_resume_btn" />
+
+
+        <View
+            android:id="@+id/footer_view"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:alpha="0.5"
+            android:background="#42A5F5"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        </View>
+
+        <TextView
+            android:id="@+id/apply_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:clickable="true"
+            android:fontFamily="serif-monospace"
+            android:gravity="center"
+            android:text="Choose A Template"
+            android:textColor="#FFF"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@id/footer_view"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="@+id/footer_view" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/apply_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:clickable="true"
+            app:backgroundTint="#FFF"
+            app:backgroundTintMode="src_atop"
+            app:layout_constraintBottom_toBottomOf="@id/footer_view"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="@+id/footer_view"
+            app:srcCompat="@drawable/ic_baseline_email_24"
+            tools:ignore="VectorDrawableCompat" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/footer_view"
+            app:layout_constraintGuide_percent="0.6"
+            app:layout_constraintTop_toTopOf="@id/footer_view" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
