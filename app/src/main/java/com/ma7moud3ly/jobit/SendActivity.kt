@@ -6,7 +6,7 @@
 */
 package com.ma7moud3ly.jobit
 
-import android.content.Context
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -23,13 +23,13 @@ class SendActivity : AppCompatActivity() {
     private lateinit var applicant: JobApplicant
     private lateinit var binding: SendLayoutBinding
     private lateinit var templates: Array<String>
-    private lateinit var context: Context
+    private lateinit var activity: Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = SendLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        context = this
+        activity = this
         //read user data passed from main activity
         var bundle: Bundle? = intent.extras
         applicant = JobApplicant(
@@ -58,7 +58,7 @@ class SendActivity : AppCompatActivity() {
                 ).show()
                 return@setOnClickListener
             }
-            applicant.applyJob(context)
+            applicant.applyJob(activity)
         }
 
         binding.refresh.setOnClickListener {
