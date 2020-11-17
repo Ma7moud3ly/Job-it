@@ -21,115 +21,59 @@
         <!--name-->
         <TextView
             android:id="@+id/name_text_view"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/input_height"
-            android:layout_marginTop="20dp"
-            android:fontFamily="monospace"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="Your Name"
-            android:textColor="@color/font1"
-            android:textSize="14sp"
+            style="@style/form_label"
+            android:text="@string/name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.4" />
 
         <EditText
             android:id="@+id/name"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/input_height"
-            android:layout_marginTop="20dp"
-            android:alpha="0.4"
-            android:background="#FFF"
-            android:fontFamily="monospace"
-            android:gravity="center"
-            android:hint="Full Name"
-            android:singleLine="true"
+            style="@style/form_input"
+            android:hint="@string/name_hint"
             android:text="@={applicant.name}"
-            android:textColor="#000"
-            android:textSize="@dimen/input_font_size"
             app:layout_constraintStart_toEndOf="@+id/name_text_view"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.55" />
         <!--phone-->
         <TextView
             android:id="@+id/phone_text_view"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/input_height"
-            android:layout_marginTop="20dp"
-            android:fontFamily="monospace"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="Your Phone"
-            android:textColor="@color/font1"
-            android:textSize="14sp"
+            style="@style/form_label"
+            android:text="@string/number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name_text_view"
             app:layout_constraintWidth_percent="0.4" />
 
         <EditText
             android:id="@+id/phone"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/input_height"
-            android:layout_marginTop="20dp"
-            android:alpha="0.4"
-            android:background="#FFF"
-            android:fontFamily="monospace"
-            android:gravity="center"
-            android:hint="Phone Number"
-            android:singleLine="true"
+            style="@style/form_input"
+            android:hint="@string/number_hint"
             android:text="@={applicant.phone}"
-            android:textColor="#000"
-            android:textSize="@dimen/input_font_size"
             app:layout_constraintStart_toEndOf="@+id/phone_text_view"
             app:layout_constraintTop_toBottomOf="@id/name"
             app:layout_constraintWidth_percent="0.55" />
         <!--job-->
         <TextView
             android:id="@+id/job_text_view"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/input_height"
-            android:layout_marginTop="20dp"
-            android:fontFamily="monospace"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="Job Title"
-            android:textColor="@color/font1"
-            android:textSize="14sp"
+            style="@style/form_label"
+            android:text="@string/job"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/phone_text_view"
             app:layout_constraintWidth_percent="0.4" />
 
         <EditText
             android:id="@+id/job"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/input_height"
-            android:layout_marginTop="20dp"
-            android:alpha="0.4"
-            android:background="#FFF"
-            android:fontFamily="monospace"
-            android:gravity="center"
-            android:hint="Your job"
-            android:singleLine="true"
+            style="@style/form_input"
+            android:hint="@string/job_hint"
             android:text="@={applicant.job}"
-            android:textColor="#000"
-            android:textSize="@dimen/input_font_size"
             app:layout_constraintStart_toEndOf="@+id/phone_text_view"
             app:layout_constraintTop_toBottomOf="@id/phone_text_view"
             app:layout_constraintWidth_percent="0.55" />
         <!--resume-->
         <TextView
             android:id="@+id/resume_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="monospace"
-            android:gravity="center"
-            android:clickable="true"
-            android:padding="10dp"
+            style="@style/form_label2"
             android:text='@={applicant.resume,default="No resume Selected!"}'
-            android:textColor="@color/font2"
-            android:textSize="@dimen/input_font_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/job_text_view" />
 
@@ -148,14 +92,9 @@
 
         <TextView
             android:id="@+id/attach_resume_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:gravity="center"
-            android:padding="10dp"
+            style="@style/form_label2"
             android:text="Attach Your Resume/CV"
             android:textColor="@color/font1"
-            android:textSize="@dimen/input_font_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/attach_resume_btn" />
 

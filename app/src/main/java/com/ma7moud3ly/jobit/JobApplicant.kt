@@ -8,11 +8,8 @@ package com.ma7moud3ly.jobit
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
-import android.util.Log
 import android.widget.Toast
 import androidx.core.content.FileProvider
-import androidx.core.net.toFile
 import androidx.databinding.ObservableField
 import java.io.File
 

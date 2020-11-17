@@ -14,13 +14,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
-import android.widget.*
-import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ma7moud3ly.jobit.databinding.MainLayoutBinding
 import com.ma7moud3ly.jobit.databinding.WelcomeLayoutBinding
 import com.ma7moud3ly.ustore.UPref
-import kotlinx.android.synthetic.main.welcome_layout.view.*
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream

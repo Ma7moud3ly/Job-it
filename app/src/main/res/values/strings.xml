@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">Job it</string>
+
+    <string name="name">Your Name</string>
+    <string name="name_hint">Full Name</string>
+    <string name="job">Your Job</string>
+    <string name="job_hint">Job Title</string>
+    <string name="number">Your Phone</string>
+    <string name="number_hint">Phone Number</string>
+
+
     <string name="welcome_msg1">Dear  Sugar,</string>
     <string name="welcome_msg2"><font color='green'>Your Resume is ready and you found the best job announcement?</font>\n\n<b>Great</b>, select an amazing cover letter and let\'s Job It...</string>
 
