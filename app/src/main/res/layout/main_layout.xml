@@ -125,6 +125,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="monospace"
             android:gravity="center"
+            android:clickable="true"
             android:padding="10dp"
             android:text='@={applicant.resume,default="No resume Selected!"}'
             android:textColor="@color/font2"

@@ -198,7 +198,7 @@
                 android:hint="Company or Recruiter Email"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
-                android:text="@={applicant.company}"
+                android:text='@={applicant.company}'
                 android:textColor="#FFF"
                 android:textSize="@dimen/input_font_size"
                 app:layout_constraintEnd_toEndOf="parent"

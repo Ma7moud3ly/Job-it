@@ -24,6 +24,8 @@ class SendActivity : AppCompatActivity() {
     private lateinit var binding: SendLayoutBinding
     private lateinit var templates: Array<String>
     private lateinit var activity: Activity
+    private lateinit var resume_name: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,9 +34,10 @@ class SendActivity : AppCompatActivity() {
         activity = this
         //read user data passed from main activity
         var bundle: Bundle? = intent.extras
+        resume_name = bundle?.getString("resume")!!
         applicant = JobApplicant(
             bundle?.getString("name"), bundle?.getString("phone"),
-            bundle?.getString("job"), bundle?.getString("resume_path")
+            bundle?.getString("job"), resume_name
         )
         binding.applicant = applicant
 
@@ -49,7 +52,6 @@ class SendActivity : AppCompatActivity() {
         binding.templates.onItemSelectedListener = template_select
 
         binding.send.setOnClickListener {
-
             if (applicant.company.get().isNullOrEmpty()) {
                 Toast.makeText(
                     applicationContext,
@@ -58,7 +60,7 @@ class SendActivity : AppCompatActivity() {
                 ).show()
                 return@setOnClickListener
             }
-            applicant.applyJob(activity)
+            applicant.applyJob(activity, resume_name)
         }
 
         binding.refresh.setOnClickListener {

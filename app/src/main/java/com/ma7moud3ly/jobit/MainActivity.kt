@@ -6,28 +6,28 @@
 */
 package com.ma7moud3ly.jobit
 
-import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
+import android.net.Uri
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
-import android.widget.Toast
+import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import com.jaiselrahman.filepicker.activity.FilePickerActivity
-import com.jaiselrahman.filepicker.config.Configurations
-import com.jaiselrahman.filepicker.model.MediaFile
 import com.ma7moud3ly.jobit.databinding.MainLayoutBinding
 import com.ma7moud3ly.jobit.databinding.WelcomeLayoutBinding
 import com.ma7moud3ly.ustore.UPref
+import kotlinx.android.synthetic.main.welcome_layout.view.*
 import java.io.File
-import java.util.*
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 
 class MainActivity : AppCompatActivity() {
-    private val PICKFILE_RESULT_CODE = 1001
+    private val PICK_FILE = 2
     private lateinit var applicant: JobApplicant
     private lateinit var binding: MainLayoutBinding
     private lateinit var sendActivityIntent: Intent
@@ -45,14 +45,12 @@ class MainActivity : AppCompatActivity() {
             welcome_screen();
         else setContentView(binding.root)
 
-
         //recover stored user data
-        pref.get("resume_path", "")
         applicant = JobApplicant(
             pref.get("name", ""),
             pref.get("phone", ""),
             pref.get("job", ""),
-            pref.get("resume_path", "")
+            pref.get("resume", "")
         )
         binding.applicant = applicant
 
@@ -60,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         binding.applyTextView.setOnClickListener(apply_now)
         binding.attachResumeBtn.setOnClickListener(attach_resume)
         binding.attachResumeTextView.setOnClickListener(attach_resume)
+        binding.resumeName.setOnClickListener { renameResume(this) }
 
         sendActivityIntent = Intent(this, SendActivity::class.java)
 
@@ -83,8 +82,8 @@ class MainActivity : AppCompatActivity() {
         val name = applicant.name.get()
         val phone = applicant.phone.get()
         val job = applicant.job.get()
-        val resume_path = applicant.resume_path.get()
-        if (name.isNullOrEmpty() || phone.isNullOrEmpty() || job.isNullOrEmpty()) {
+        val resume = applicant.resume.get()
+        if (name.isNullOrEmpty() || phone.isNullOrEmpty() || job.isNullOrEmpty() || resume == null) {
             Toast.makeText(applicationContext, "Please Provide all you data!", Toast.LENGTH_SHORT)
                 .show()
             return@OnClickListener
@@ -92,85 +91,103 @@ class MainActivity : AppCompatActivity() {
         sendActivityIntent.putExtra("name", name)
         sendActivityIntent.putExtra("phone", phone)
         sendActivityIntent.putExtra("job", job)
-        sendActivityIntent.putExtra("resume_path", resume_path)
+        sendActivityIntent.putExtra("resume", resume)
         startActivity(sendActivityIntent)
     }
 
+
     //pickup a resume file
     private val attach_resume = View.OnClickListener {
-        if (isStoragePermissionGranted()) {
-            val intent = Intent(this, FilePickerActivity::class.java)
-            intent.putExtra(
-                FilePickerActivity.CONFIGS, Configurations.Builder()
-                    .setShowFiles(true)
-                    .setShowImages(false)
-                    .setShowAudios(false)
-                    .setShowVideos(false)
-                    .setSingleClickSelection(true)
-                    .setSuffixes("pdf")
-                    .setMaxSelection(1)
-                    .setSingleChoiceMode(true)
-                    .setSkipZeroSizeFiles(true)
-                    .build()
-            )
-            startActivityForResult(intent, PICKFILE_RESULT_CODE)
-        }
+        openFile()
+    }
+
+    fun openFile() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "application/pdf"
+        // if (scripts != null) intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, scripts)
+        startActivityForResult(intent, PICK_FILE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_FILE && resultCode == Activity.RESULT_OK) {
+            val old_resume = File(App.resume_path, applicant.resume.get())
+            if (old_resume.exists()) old_resume.delete()
+            applicant.resume.set(null);
+            val uri = data?.getData()
+            val file = copyResume(uri)
+            if (file != null) {
+                applicant.resume.set(file.name);
 
-        if (requestCode == PICKFILE_RESULT_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            val files: ArrayList<MediaFile> =
-                data.getParcelableArrayListExtra(FilePickerActivity.MEDIA_FILES)
-            var path = files[0].path
-            val name: String = File(path).name
-            applicant.resume.set(name)
-            applicant.resume_path.set(path)
-        }
-    }
-
-    //check if storage permission is granted
-    private fun isStoragePermissionGranted(): Boolean {
-        return if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-            ) {
-                true
-            } else {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                    ),
-                    1
-                )
-                false
             }
-        } else {
-            true
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
+    fun renameResume(context: Context) {
+        if (applicant.resume == null || applicant.resume.get() == "") return
+        val builder = AlertDialog.Builder(context)
+        val title = EditText(context)
+        title.setText(applicant.resume.get())
+        title.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
+        title.hint = "resume name.."
+        title.setSelectAllOnFocus(true)
+        val layout = LinearLayout(context)
+        layout.orientation = LinearLayout.VERTICAL
+        layout.addView(title)
+        builder.setView(layout)
+        builder.setMessage("rename your resume..")
+        builder.setNegativeButton("Cancel") { dialog, which -> dialog.dismiss() }
+        builder.setPositiveButton("Ok", null)
+        val dialog = builder.create()
+        dialog.show()
+        val positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        positive.setOnClickListener {
+            try {
+                val new_name = File(App.resume_path, title.text.toString())
+                val old_name = File(App.resume_path, applicant.resume.get())
+                old_name.renameTo(new_name)
+                applicant.resume.set(title.text.toString())
+                dialog.dismiss()
+            } catch (e: Exception) {
+                Toast.makeText(context, "invalid name", Toast.LENGTH_LONG).show()
+                title.selectAll()
+                e.printStackTrace()
+            }
         }
     }
 
-    //restore user data
+
     override fun onPause() {
         super.onPause()
         val pref = UPref(this)
         pref.put("name", applicant.name.get())
         pref.put("phone", applicant.phone.get())
         pref.put("job", applicant.job.get())
-        pref.put("resume_path", applicant.resume_path.get())
+        pref.put("resume", applicant.resume.get())
     }
 
-
+    private fun copyResume(uri: Uri?): File? {
+        try {
+            val inputPFD = contentResolver.openFileDescriptor(uri!!, "r")
+            val fd = inputPFD?.fileDescriptor
+            var name = File(uri.path).name
+            if (!name.endsWith(".pdf")) name += ".pdf"
+            val dest = File(App.resume_path, name)
+            if (!dest.parentFile.exists()) dest.parentFile.mkdirs()
+            FileInputStream(fd).use { inp ->
+                FileOutputStream(dest).use { out ->
+                    val buf = ByteArray(1024)
+                    var len: Int = 0
+                    while (inp.read(buf).also({ len = it }) > 0) {
+                        out.write(buf, 0, len)
+                    }
+                }
+            }
+            return dest
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return null;
+        }
+    }
 }
